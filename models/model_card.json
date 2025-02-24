@@ -1,0 +1,109 @@
+{
+  "model": "LightGBM, tuned",
+  "library": "lightgbm",
+  "target": "sqrt(rentals)",
+  "features": [
+    "hour",
+    "day_of_week",
+    "is_weekend",
+    "is_holiday",
+    "season_code",
+    "temperature",
+    "humidity",
+    "wind_speed",
+    "visibility",
+    "solar_radiation",
+    "rainfall",
+    "snowfall",
+    "rain_prev_3h",
+    "lag_24h",
+    "lag_168h",
+    "same_hour_7d_mean",
+    "prev_day_mean"
+  ],
+  "params": {
+    "n_estimators": 863,
+    "learning_rate": 0.04362372167018996,
+    "num_leaves": 12,
+    "min_child_samples": 7,
+    "subsample": 0.7016542068639053,
+    "colsample_bytree": 0.6356586697912545,
+    "reg_alpha": 0.00227087301860565,
+    "reg_lambda": 0.07353767217698638
+  },
+  "train_period": [
+    "2017-12-01",
+    "2018-09-30"
+  ],
+  "test_period": [
+    "2018-10-01",
+    "2018-11-30"
+  ],
+  "conformal_q_by_band": {
+    "weekday daytime": 5.023991060329898,
+    "weekday evening peak": 8.05645918596231,
+    "weekday late evening": 7.40979347305135,
+    "weekday morning peak": 8.288356941466496,
+    "weekday night": 4.856744847629887,
+    "weekend/holiday daytime": 6.990430631891979,
+    "weekend/holiday evening peak": 9.227544097529211,
+    "weekend/holiday late evening": 7.928893533041425,
+    "weekend/holiday morning peak": 7.681172728267406,
+    "weekend/holiday night": 4.892378434675631
+  },
+  "conformal_q_single": 6.499989661814141,
+  "interval_target": 0.9,
+  "test_interval_coverage": 0.9337395277989338,
+  "test_interval_coverage_one_margin": 0.9086062452399086,
+  "test_interval_mean_width": 699.6922210622529,
+  "cv_metrics": {
+    "MAE": 173.07311510346008,
+    "RMSE": 255.18854706910355,
+    "R2": 0.8572472036610002,
+    "R2_sqrt": 0.8609313298919505
+  },
+  "test_metrics": {
+    "naive: same hour yesterday": {
+      "MAE": 231.00599136836763,
+      "RMSE": 404.1703448973258,
+      "R2": 0.4814911347377512,
+      "R2_sqrt": 0.3779195025993134
+    },
+    "naive: same-hour 7-day mean": {
+      "MAE": 233.79651833315197,
+      "RMSE": 377.0018403003638,
+      "R2": 0.5488569860190635,
+      "R2_sqrt": 0.4966272010871763
+    },
+    "Ridge regression": {
+      "MAE": 170.1248155830889,
+      "RMSE": 248.314938878129,
+      "R2": 0.8042809981852626,
+      "R2_sqrt": 0.7928117705437263
+    },
+    "v1 as written (date bug)": {
+      "MAE": 252.52830740544718,
+      "RMSE": 354.7564367346756,
+      "R2": 0.6005266013951391,
+      "R2_sqrt": 0.6570322255483856
+    },
+    "v1 with dates fixed": {
+      "MAE": 239.81412747143187,
+      "RMSE": 331.55867102825886,
+      "R2": 0.6510621533131775,
+      "R2_sqrt": 0.6957505711588774
+    },
+    "v2: LightGBM, tuned": {
+      "MAE": 139.4372716643221,
+      "RMSE": 213.23935643252764,
+      "R2": 0.8556682017665741,
+      "R2_sqrt": 0.8841709276058374
+    }
+  },
+  "weather_sensitivity_mae": {
+    "observed weather (as above)": 139.4372716643221,
+    "1. typical forecast errors": 149.4048270407466,
+    "2. ...rain spread over the day": 194.37888310893928,
+    "3. ...no rain information": 168.93088612195248
+  }
+}
